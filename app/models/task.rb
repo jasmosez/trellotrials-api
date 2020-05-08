@@ -21,7 +21,7 @@ class Task < ApplicationRecord
         new_card_id = Task.create_card_on_satellite(card_title)
         Task.create(title: card_title, card_a_id: card_id, card_b_id: new_card_id)
         puts "THIS IS A NEW CARD (via Mother Earth)"
-        Task.add_label_to_card(new_card_id)
+        Task.add_label_to_card(new_card_id, "5ea700027669b22549e967e7")
       end
 
     elsif board_name == 'Satellite'
@@ -34,19 +34,19 @@ class Task < ApplicationRecord
         new_card_id = Task.create_card_on_mother_earth(card_title)
         Task.create(title: card_title, card_b_id: card_id, card_a_id: new_card_id)
         puts "THIS IS A NEW CARD (via Satellite)"
-        Task.add_label_to_card(new_card_id)
+        Task.add_label_to_card(new_card_id, "5ea700467669b22549ebda4b")
       end
 
     end
   end
   
-  def self.add_label_to_card(new_card_id)
+  def self.add_label_to_card(new_card_id, label_id)
     # create a POST request
     url = "https://api.trello.com/1/cards/#{new_card_id}"
     query_hash = {
       key: ENV["TRELLO_KEY"],
       token: ENV["TRELLO_TOKEN"],
-      idLabels: "5ea700467669b22549ebda4b"
+      idLabels: label_id
     }
     resp = Faraday.put(url, query_hash)
 

@@ -13,6 +13,13 @@ class HooksController < ApplicationController
     board_name = hooks_params[:action][:data][:board][:name]
     
     if board_name == "Mother Earth" || "Satellite"
+
+      # Create swtich statement
+      # create card -- new Card
+      # delete card -- delete Card
+      # addLabelToCard -- add a Boss id to the card (and maybe make a new Boss)
+      # removeLabelFromCard -- remove a Boss id
+
       if type == 'addLabelToCard' 
         # && if it is a label that means 'sync' which for now is any label
         Task.register_task(hooks_params)
